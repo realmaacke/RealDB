@@ -10,7 +10,7 @@
 - CUSTOM FILE FORMAT (.rdb)
 
 >Pseudo like database management
-> purely build in c# using .NET
+>purely build in c# using .NET
 
 ## SYNTAX
 
