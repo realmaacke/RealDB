@@ -4,11 +4,17 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace RealDB.src
 {
     public class EventHandler
     {
+        private readonly string _database = "DATABASE";
+        private readonly string _table = "TABLE";
+        private readonly string _invalid = "INVALID SYNTAX";
+        private readonly string _create = "CREATE";
+
         public main main;
         string dbPath;
         public EventHandler(main main)
@@ -23,31 +29,33 @@ namespace RealDB.src
 
         public void Create(string[] input)
         {
-            if(input.Length >= 3)
+            if (input.Length == 3)
             {
-                if(input.Length == 3)
+                if (input[1] == _database)
                 {
-                    if (input[1] == "DATABASE")
-                    {
-                        CreateDatabase(input[2]);
-                    }
-                    main.errorHandler.ReturnError("INVALID SYNTAX");
+                    
                 }
-                
-                if(input.Length == 6)
-                {
-                    if (input[4] == "CREATE" && input[5] == "TABLE")
-                    {
-                        CreateTable(input[2], input[6]);
-                    }
-                }
-                main.errorHandler.ReturnError("INVALID SYNTAX");
+                main.errorHandler.ReturnError(_invalid);
             }
-            main.errorHandler.ReturnError("INVALID SYNTAX");
+
+            //  0       1       2     3      4    5
+            // CREATE DATABASE NAME CREATE TABLE NAME
+            if (input.Length > 4)
+            {
+                if (input[0] == _create && input[1] == _database)
+                {
+                    if (input[3] == _create && input[4] == _table)
+                    {
+                        CreateDatabase(input[2], input[5], true);
+                    }
+                }
+            }
+            main.errorHandler.ReturnError(_invalid);
+
 
         }
 
-        public string CreateDatabase(string name)
+        public void CreateDatabase(string name, string tableName,  bool andTable)
         {
             string path = Directory.GetCurrentDirectory();
             string database = Path.GetFullPath(Path.Combine(path, name));
@@ -60,18 +68,35 @@ namespace RealDB.src
             {
                 Directory.CreateDirectory(database);
                 main.errorHandler.ReturnError("Database Succesfully Created");
-            }
 
-            return database;
+                if (andTable)
+                    CreateATable();
+            }
+        }
+
+        public void CreateATable()
+        {
+            Console.WriteLine("ASD");
         }
 
         public void CreateTable(string database, string name)
         {
+            Console.WriteLine("ASD");
+
             string path = Directory.GetCurrentDirectory();
-            string Table = Path.GetFullPath(Path.Combine(path, name));
-            if (File.Exists(name + ".rdp"))
+            string databaseFolder = Path.GetFullPath(Path.Combine(path, database));
+            string file = (name + ".rdp");
+
+            string tempPath = Path.GetFullPath(Path.Combine(databaseFolder, file));
+
+            if (File.Exists(tempPath))
             {
-                
+                Console.WriteLine(name);
+            }
+            else
+            {
+                File.Create(tempPath);
+                Console.WriteLine("FILE CREATED");
             }
             
         }

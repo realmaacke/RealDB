@@ -11,7 +11,7 @@
 
 >Pseudo like database management
 >
->purely build in c# using .NET
+>purely built in c# using .NET
 
 ## SYNTAX
 
