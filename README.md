@@ -1,1 +1,39 @@
-# RealDB
+Documentation
+
+
+Main class = instance
+
+Manager saves instances of all classes (that main provides)
+
+// main class
+Main.start() <- Refresh Function
+
+
+// Eventhandler class
+handler.SplitQuerry() <-
+handler.ReadQuerry() <-
+
+
+//ErrorHandler class
+
+//Input Class
+
+//commands
+SELECT 
+INSERT
+DELETE
+VIEW
+CREATE
+
+//syntax
+
+CREATE (database) name
+
+CREATE (database) name CREATE (table) name
+
+SELECT (database) CREATE (table)
+
+SELECT (database) DELETE (table)
+
+SELECT (database) SELECT (table)
+
